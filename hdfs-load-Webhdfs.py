@@ -5,7 +5,6 @@
 # import the python subprocess module
 """
 import subprocess
-import time
 from pydoop import hdfs
 """
 from requests import get,put
@@ -30,12 +29,6 @@ def run_cmd(args_list):
 """
 db_name,file_name,schema = input().split()
 
-<<<<<<< HEAD
-db = input()
-data_file = input()
-file_name = data_file.split("/")[-1]
-schema = input()+"\n"
-=======
 check_db = get(webhdfs + db_name + "/?op=LISTSTATUS")
 if('RemoteException' in check_db.json().keys()):
 	#Database Does not Exists so create Database
@@ -60,28 +53,12 @@ else:
 
 
 """
->>>>>>> c793fc75167169b61897e018bef382c1fd9e0628
 (ret, out, err) = run_cmd(['hdfs','dfs','-ls','/sql/'])
-out = out.decode()
 if not(ret) and out.find(db) != -1:
 	print("database already exists")
 elif not(ret) and out.find(db) == -1:
 	run_cmd(['hdfs','dfs','-mkdir','/sql/'+db])
-<<<<<<< HEAD
-	run_cmd(['hdfs','dfs','-put',data_file,'/sql/'+db+'/'])
-	#time.sleep(2)
-	run_cmd(['hdfs','dfs','-mv',"/sql/"+db+"/"+file_name,'/sql/'+db+'/'+db+".csv"])
-	run_cmd(['hdfs','dfs','-touch','/sql/'+db+'/'+db+"_scheme.csv"])
-	try:
-		with hdfs.open('/sql/'+db+'/'+db+"_scheme.csv", 'a') as f:
-			data = schema
-			f.write(data.encode())
-	except:
-		pass
-
-=======
 	run_cmd(['hdfs','dfs','-put','/sql/'+db+db])
 	with hdfs.open('/sql/'+db+'/'+db, 'a') as f:
         f.write(data.encode())
 """
->>>>>>> c793fc75167169b61897e018bef382c1fd9e0628
