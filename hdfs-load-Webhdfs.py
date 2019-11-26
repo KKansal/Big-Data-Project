@@ -10,6 +10,7 @@ from pydoop import hdfs
 from requests import get,put
 from getpass import getuser
 username = getuser()
+
 #URL where the data of the SQL engine is stored
 
 webhdfs = "http://localhost:9870/webhdfs/v1/sql/"
@@ -28,7 +29,7 @@ def run_cmd(args_list):
 	return s_return, s_output, s_err
 """
 db_name,file_name,schema = input().split()
-
+schema += "\n"
 check_db = get(webhdfs + db_name + "/?op=LISTSTATUS")
 if('RemoteException' in check_db.json().keys()):
 	#Database Does not Exists so create Database
