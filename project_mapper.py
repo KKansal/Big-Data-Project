@@ -3,13 +3,20 @@ import sys
 table = sys.stdin
 
 
-#query has comma seperated values like age,name
+'''
+query has comma seperated values like age,name
 
+To run this code use:
+
+python3 project_mapper.py < Employee_data.csv educ,gender
+
+'''
+#print(sys.argv)
 query = sys.argv[1]
 query = query.split(',')
 query_len = len(query)
 column_order = []
-fp = open("database_schema.txt","r")
+fp = open("employee_schema.txt","r")
 schema = fp.read()
 fp.close()
 schema = schema.split(',')

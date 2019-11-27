@@ -3,10 +3,17 @@ table = sys.stdin
 
 cond = sys.argv[1]
 
-#cond is a list of comma seperated conditions eg: col_name=val
 
+'''
+cond is a list of comma seperated conditions eg: col_name=val
 
-fp = open("database_schema.txt","r")
+To run this code use:
+
+python3 select_mapper.py < Employee_data.csv educ=15,gender=m
+
+'''
+
+fp = open("employee_schema.txt","r")
 schema = fp.read()
 fp.close()
 schema = schema.split(",")
