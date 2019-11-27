@@ -7,7 +7,7 @@ Created on Thu Nov 21 14:08:15 2019
 
 import re
 query=input("Enter your query:")
-regex_load=r'(load|LOAD) [a-z A-Z 0-9]+/[a-z A-Z 0-9]+\.csv (AS|as)\s\(([a-z A-z]+:(string|int|integer|char|varchar|folat|doule|time|year)(,|))+\);'
+regex_load=r'(load|LOAD) [a-z A-Z 0-9]+/[a-z A-Z 0-9]+\.csv (AS|as)\s\(([a-z A-z]+:(string|int|integer|char|varchar|float|double|time|year)(,|))+\);'
 regex_select=r'(select|SELECT)\s(\*|[a-z A-Z 0-9]+)\s(from|FROM)\s[a-z A-Z 0-9]+/[a-z A-Z 0-9]+\.csv(\s(where|WHERE)\s[a-z A-Z 0-9]+(\s|)=(\s|)([0-9]+|\'[a-z A-Z]+\')|);'
 regex_delete=r'(delete|DELETE)\s(\*|[a-z A-Z 0-9]+)\s(from|FROM)\s[a-z A-Z 0-9]+/[a-z A-Z 0-9]+\.csv(\s(where|WHERE)\s[a-z A-Z 0-9]+(\s|)=(\s|)([0-9]+|\'[a-z A-Z]+\')|);'
 if(re.search(regex_load,query)!=None):

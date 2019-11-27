@@ -2,3 +2,20 @@ Big Data Project
 
 
 hadoop jar $HADOOP_HOME/contrib/streaming/hadoop-*streaming*.jar -files ./t.txt  -file ./mapper.py    -mapper ./mapper.py -file ./reducer.py   -reducer ./reducer.py -input /sql/kk.csv -output /out0
+
+Types of query and corresponding input to each program:
+1)	select col1,col2 from database/table.csv where col1=val1,col2=val2;
+	select_mapper.py ==> col1=val1,col2=val2
+	project_mapper.py ==> col1,col2
+
+
+2)	select col from database/table.csv where col=val aggregate by count;
+	select_mapper.py ==> col=val
+	project_mapper.py ==> col
+	aggregate.py ==> col,count
+
+3)	LOAD database/table.csv AS (column_name:datatype,column_name:datatype);
+	hdfs-load-Webhdfs.py ==> database table.csv column_name:datatype,column_name:datatype
+
+4)	DELETE database/table.csv;
+	hdfs-load-Webhdfs.py ==> database table.csv
