@@ -1,27 +1,20 @@
-original_query = input().strip().strip(";")
+# -*- coding: utf-8 -*-
+"""
+Created on Thu Nov 21 14:08:15 2019
 
-query_type = original_query.split()[0] #Valid Types - LOAD,DELETE,SELECT
+@author: Hp
+"""
 
-
-
-
-if(query_type.upper()=="LOAD"):
-#LOAD QUERY FORMAT - LOAD database_name/table_name.csv AS (column_name: datatype, column_name: datatype);
-	try:
-		reduced_query = original_query.split(query_type)[1]
-		db_file_name,schema = reduced_query.split("AS")
-		db_name,file_name = db_file_name.strip().split("/")
-		schema = schema.strip("( )")
-		# print(db_name)
-		# print(file_name)
-		# print(schema)
-
-
-	except Exception as e:
-		print(e)
-		print("Invalid Query")
-
-
+import re
+query=input("Enter your query:")
+regex_load=r'(load|LOAD) [a-z A-Z 0-9]+/[a-z A-Z 0-9]+\.csv (AS|as)\s\(([a-z A-z]+:(string|int|integer|char|varchar|folat|doule|time|year)(,|))+\);'
+regex_select=r'(select|SELECT)\s(\*|[a-z A-Z 0-9]+)\s(from|FROM)\s[a-z A-Z 0-9]+/[a-z A-Z 0-9]+\.csv(\s(where|WHERE)\s[a-z A-Z 0-9]+(\s|)=(\s|)([0-9]+|\'[a-z A-Z]+\')|);'
+regex_delete=r'(delete|DELETE)\s(\*|[a-z A-Z 0-9]+)\s(from|FROM)\s[a-z A-Z 0-9]+/[a-z A-Z 0-9]+\.csv(\s(where|WHERE)\s[a-z A-Z 0-9]+(\s|)=(\s|)([0-9]+|\'[a-z A-Z]+\')|);'
+if(re.search(regex_load,query)!=None):
+    print(query)
+elif(re.search(regex_select,query)!=None):
+    print(query)
+elif(re.search(regex_delete,query)!=None):
+    print(query)
 else:
-	print("Query type Not Supported")
-
+    print("error: Please check u might have missed table name or semicolon or check syntax")
