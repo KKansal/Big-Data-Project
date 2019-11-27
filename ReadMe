@@ -1,1 +1,4 @@
 Big Data Project
+
+
+hadoop jar $HADOOP_HOME/contrib/streaming/hadoop-*streaming*.jar -files ./t.txt  -file ./mapper.py    -mapper ./mapper.py -file ./reducer.py   -reducer ./reducer.py -input /sql/kk.csv -output /out0
