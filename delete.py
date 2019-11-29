@@ -8,5 +8,5 @@ respons = delete("http://localhost:9870/webhdfs/v1/"+file_path+"?user.name="+get
 
 if respons.json()['boolean'] == True:
 	print("File/folder deleted successfully")
-else:
-	print("Failed to delete: File not present")
+# else:
+# 	print("Failed to delete: File not present")
