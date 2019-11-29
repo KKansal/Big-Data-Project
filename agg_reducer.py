@@ -56,7 +56,7 @@ inline = sys.stdin
 column,agg = sys.argv[1].split(",")
 
 
-fd_schema = open('database_schema.txt','r')
+fd_schema = open('schema.txt','r')
 schema = fd_schema.read();
 fd_schema.close()
 
@@ -73,24 +73,26 @@ except:
 
 aggobj = agg_func(agg)
 
-prev_value = ''
+# prev_value = ''
 
 for line in inline:
     line = [i.strip() for i in line.split(",")]
     new_value = line[column_index]
     try:
-        if(prev_value == ''):                    #only for the first line
-            prev_value = new_value
-            aggobj.call_func(new_value)   
+        aggobj.call_func(new_value)
+        # if(prev_value == ''):                    #only for the first line
+        #     prev_value = new_value
+        #     aggobj.call_func(new_value)   
 
-        elif(prev_value==new_value):
-            aggobj.call_func(new_value)
-        else:
-            print(prev_value,aggobj.agg_value)
-            prev_value = new_value
-            aggobj.agg_value = float('-inf')
-            aggobj.call_func(new_value)
+        # elif(prev_value==new_value):
+        #     aggobj.call_func(new_value)
+        # else:
+        #     print(prev_value,aggobj.agg_value)
+        #     prev_value = new_value
+        #     aggobj.agg_value = float('-inf')
+        #     aggobj.call_func(new_value)
+
     except ValueError:
         print("Cannot Perform operation on String Type")
         exit()
-# print(aggobj.agg_value)
+print(aggobj.agg_value)

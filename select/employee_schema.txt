@@ -1,0 +1,1 @@
+id:integer,gender:string,bdate:string,educ:integer,jobcat:integer,salary:string,salbegin:string,jobtime:integer,prevexp:integer,minority:integer

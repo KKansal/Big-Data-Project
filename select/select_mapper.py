@@ -13,7 +13,7 @@ python3 select_mapper.py < Employee_data.csv educ=15,gender=m
 
 '''
 
-fp = open("employee_schema.txt","r")
+fp = open("schema.txt","r")
 schema = fp.read()
 fp.close()
 schema = schema.split(",")
