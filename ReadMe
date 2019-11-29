@@ -1,7 +1,19 @@
 Big Data Project
 
 
-hadoop jar $HADOOP_HOME/contrib/streaming/hadoop-*streaming*.jar -files ./t.txt  -file ./mapper.py    -mapper ./mapper.py -file ./reducer.py   -reducer ./reducer.py -input /sql/kk.csv -output /out0
+hadoop jar $HADOOP_HOME/contrib/streaming/hadoop-*streaming*.jar  -D mapred.reduce.tasks=0 -files employee_schema.txt  -file select_mapper.py    -mapper select_mapper.py -input /sql/Employee_data.csv -output /out12
+
+working --- hadoop jar $HADOOP_HOME/contrib/streaming/hadoop-*streaming*.jar  -files "hdfs://localhost:9000/sql/database_schema.txt#schema.txt"  -file select_mapper.py    -mapper "python3 select_mapper.py age=20" -input /out-output /out12
+
+
+working --- hadoop jar $HADOOP_HOME/contrib/streaming/hadoop-*streaming*.jar  -files "hdfs://localhost:9000/sql/database_schema.txt#schema.txt"  -file select_mapper.py    -mapper "python3 select_mapper.py age=20" -file agg_reducer.py -reducer "python3 agg_reducer.py age,count" -input /sql/database.csv -output /out12
+
+hadoop jar $HADOOP_HOME/contrib/streaming/hadoop-*streaming*.jar  -files "hdfs://localhost:9000/sql/database_schema.txt#schema.txt"  -file project_mapper.py    -mapper "python3 project_mapper.py age" -file remdup_reducer.py -reducer "python3 remdup_reducer.py" -input /sql/out12 -output /out13
+
+hadoop jar $HADOOP_HOME/contrib/streaming/hadoop-*streaming*.jar  -files "hdfs://localhost:9000/sql/database_schema.txt#schema.txt"  -file identity_map.py    -mapper "python3 identity_map.py " -file agg_reducer.py -reducer "python3 agg_reducer.py age,count" -input /sql/Employee_data.csv -output /out12
+
+
+
 
 Types of query and corresponding input to each program:
 1)	select col1,col2 from database/table.csv where col1=val1,col2=val2;
