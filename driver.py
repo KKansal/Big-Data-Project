@@ -1,11 +1,9 @@
 
 
 while 1:
-	print("-->",end=" ")
+	print("crab>>",end=" ")
 	query  = input();
 	if(query=="exit"):
-		break;
-	parser()
-
-
-
+		exit();
+	l=parser(query)
+	
