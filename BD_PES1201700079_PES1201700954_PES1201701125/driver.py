@@ -110,6 +110,6 @@ while 1:
 		 			os.system(cmd)
 				else:
 		 			os.wait()
-	delete.delete_folder("/sql/temp/select_out/ ")
-	delete.delete_folder("/sql/final_out/ ")
+		delete.delete_folder("/sql/temp/select_out/ ")
+		delete.delete_folder("/sql/final_out/ ")
 		 		

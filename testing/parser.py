@@ -72,3 +72,4 @@ def parser(query):
         return(d)
     else:
         print("error: Please check u might have missed table name or semicolon or check syntax")
+        return -1

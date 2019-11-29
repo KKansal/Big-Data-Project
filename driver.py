@@ -82,5 +82,11 @@ while 1:
 		 		else:
 		 			os.wait()
 
+<<<<<<< HEAD
 		exit();
 	l=parser(query)
+=======
+
+	
+
+>>>>>>> 1013ba79731626cf1b61c77c4da9745baf7ef4da
