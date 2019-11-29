@@ -1,7 +1,8 @@
 while 1:
-	print("-->",end=" ")
+	print("crab>>",end=" ")
 	query  = input();
 	if(query=="exit"):
+<<<<<<< HEAD
 		break;
 	queries = parser(query)
 	
@@ -83,3 +84,8 @@ while 1:
 		 			os.wait()
 
 
+=======
+		exit();
+	l=parser(query)
+	
+>>>>>>> 3891b1702b9bd4236bb40b5055abdb9db2e63f0e
