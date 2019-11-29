@@ -57,7 +57,7 @@ column,agg = sys.argv[1].split(",")
 
 
 fd_schema = open('schema.txt','r')
-schema = fd_schema.read();
+schema = fd_schema.read().strip("()")
 fd_schema.close()
 
 schema = schema.split(',')
@@ -68,7 +68,7 @@ try:
     column_index = schema.index(column)
 except:
     print("Column Name does not exist in the Schema")
-    exit();
+    exit()
 
 
 aggobj = agg_func(agg)

@@ -17,11 +17,14 @@ query = query.split(',')
 query_len = len(query)
 column_order = []
 fp = open("schema.txt","r")
-schema = fp.read()
+schema = fp.read().strip("()")
+# print(schema)
 fp.close()
+
 schema = schema.split(',')
 schema = [x.split(':')[0] for x in schema]
 schema_len = len(schema)
+
 
 for i in range(0,query_len):
 	for j in range(0,schema_len):

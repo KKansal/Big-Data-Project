@@ -14,7 +14,7 @@ python3 select_mapper.py < Employee_data.csv educ=15,gender=m
 '''
 
 fp = open("schema.txt","r")
-schema = fp.read()
+schema = fp.read().strip("()")
 fp.close()
 schema = schema.split(",")
 schema = [x.split(':')[0] for x in schema]
