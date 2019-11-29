@@ -2,12 +2,12 @@
 """
 Created on Thu Nov 21 14:08:15 2019
 
-@author: Hp
+@author: Vivek
 """
 
 import re
 def parser(query):
-    # query=input("Enter your query:")
+    #query=input("Enter your query:")
     regex_load=r'(load|LOAD) \w+/\w+\.csv (AS|as)\s\(([a-z A-z]+:(string|int|integer|char|varchar|float|double|time|year)(,|))+\);'
     regex_select=r'(select|SELECT)\s(\w+|\w+,)\s(from|FROM)\s\w+/\w+\.csv(\s(where|WHERE)\s\w+(\s|)=(\s|)([0-9]+|\w+|)|);'
     #regex_delete=r'(delete|DELETE)\s(\*|[a-z A-Z 0-9]+)\s(from|FROM)\s[a-z A-Z 0-9]+/[a-z A-Z 0-9]+\.csv(\s(where|WHERE)\s[a-z A-Z 0-9]+(\s|)=(\s|)([0-9]+|\'[a-z A-Z]+\')|);'
@@ -37,6 +37,8 @@ def parser(query):
             index=query.index('WHERE')
             d['select']=query[index+1].split(";")[0]
         d['project']=query[1]
+        d['database']=query[3].split("/")[0]
+        d['table']=query[3].split("/")[1].split(";")[0]
         return(d)
     elif(re.search(regex_delete,query)!=None):
         d={}
@@ -62,9 +64,11 @@ def parser(query):
             
             index_aggr=query.index("aggregate")
         #l3.extend([string,query[1],query[index_aggr+2].split(";")[0]])
+        
         string="aggregate"
         d[string]=[query[1],query[index_aggr+2].split(";")[0]]
+        d['database']=query[3].split("/")[0]
+        d['table']=query[3].split("/")[1].split(";")[0]
         return(d)
     else:
         print("error: Please check u might have missed table name or semicolon or check syntax")
-        exit()
