@@ -1,0 +1,1 @@
+(Card_Type:string,Issuing_Bank:string,Card_Number:string,Card_Holder_Name:string,CVV:integer,Issue:string,Expiry:string,Billing_Date:string,PIN:integer,Limit:integer)

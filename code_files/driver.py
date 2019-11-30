@@ -9,7 +9,7 @@ while 1:
 	print("-->",end=" ")
 	query  = input();
 	if(query=="exit"):
-		break;
+		exit()
 	queries = parser.parser(query)
 	if(queries==-1):
 		continue
@@ -17,7 +17,7 @@ while 1:
 	# print(queries)
 	try:
 		db_name = queries['database']
-		table_name = queries['table'].strip(".csv")
+		table_name = queries['table'].rstrip(".csv")
 		del queries['database']
 		del queries['table']
 	except:
@@ -35,8 +35,12 @@ while 1:
 
 		 elif('delete' in list_queries):
 	 			db_name,table_name=queries['delete'].split()
-	 			table_name = table_name.strip(".csv")
-	 			delete.delete_folder(db_name + "/" + table_name + "/")
+	 			table_name = table_name.rstrip(".csv")
+	 			res = delete.delete_folder(db_name + "/")
+	 			if res == True:
+	 				print("Database deleted successfully")
+	 			else:
+	 				print("Given Database doesnot exist")
 	 			continue
 		 		
 		 		
@@ -53,6 +57,7 @@ while 1:
 
 		 			# print(cmd)
 		 			os.system(cmd)
+		 			exit()
 		 		else:
 		 			os.wait()
 	else:
@@ -70,6 +75,7 @@ while 1:
 		 						'-output /sql/final_out'
 		 			# print(cmd)
 		 			os.system(cmd)
+		 			exit()
 		 		else:
 		 			os.wait()
 		elif(('select' in list_queries) and ('project' in list_queries)):  #SELECT COL1 FROM DB/T.CSV WHERE COL1=VAL1;
@@ -93,6 +99,7 @@ while 1:
 		 						'-input /sql/temp/select_out ' + \
 		 						'-output /sql/final_out'
 		 			os.system(cmd)
+		 			exit()
 		 		else:
 		 			os.wait()
 		elif(('project' in list_queries) and ('aggregate' in list_queries)):
@@ -108,9 +115,10 @@ while 1:
 		 						'-output /sql/final_out'
 		 			print(cmd)
 		 			os.system(cmd)
+		 			exit()
 				else:
 		 			os.wait()
-	print(read.read_folder("/sql/final_out/ "))
+	read.read_folder("/sql/final_out/")
 	delete.delete_folder("/sql/temp/select_out/ ")
 	delete.delete_folder("/sql/final_out/ ")
 		 		
