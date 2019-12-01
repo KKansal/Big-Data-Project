@@ -29,6 +29,12 @@ column_index = []
 columns = [x.split("=")[0].strip() for x in cond]
 values = [x.split("=")[1].strip() for x in cond]
 
+flag= True
+for x in columns:
+	if x not in schema:
+		print("Select: Given column doesnot exist")
+		flag = False
+
 for i in range(len(columns)):
 	for j in range(len(schema)):
 		if columns[i] == schema[j]:
@@ -38,11 +44,12 @@ for i in range(len(columns)):
 # print(values)
 
 for line in table:
-	count = len(values)
-	line = line.strip()
-	line_list = line.split(',')
-	for i in range(len(values)):
-		if line_list[column_index[i]] == values[i]:
-			count-=1
-	if count == 0:
-		print(line)
+	if flag:
+		count = len(values)
+		line = line.strip()
+		line_list = line.split(',')
+		for i in range(len(values)):
+			if line_list[column_index[i]] == values[i]:
+				count-=1
+		if count == 0:
+			print(line)

@@ -3,15 +3,16 @@ import parser
 import delete
 import read
 import os
+import time
 
 while 1:
 	
-	print("-->",end=" ")
+	print("Mini-Hive>>",end=" ")
 	query  = input();
 	if(query=="exit"):
 		exit()
 	queries = parser.parser(query)
-	if(queries==-1):
+	if(queries==None):
 		continue
 	# print(queries)
 	# print(queries)
@@ -20,8 +21,12 @@ while 1:
 		table_name = queries['table'].rstrip(".csv")
 		del queries['database']
 		del queries['table']
+		if(load.check_file(db_name + "/" + table_name )==False):
+			print("Database/Table Does not Exist")
+			continue
 	except:
 		pass
+	# print(queries)
 	list_queries = list(queries.keys())
 	# print(db_name,table_name,list_queries)
 
@@ -48,15 +53,19 @@ while 1:
 		 		new_proc = os.fork()
 		 		if(new_proc == 0):
 		 			cmd = 'hadoop jar $HADOOP_HOME/contrib/streaming/hadoop-*streaming*.jar ' + \
-		 						'-D mapred.reduce.tasks=0 ' + \
 		 						'-files "hdfs://localhost:9000/sql/' + db_name + '/' + table_name + '/schema.txt" ' + \
 		 						'-file project_mapper.py '+ \
 		 						'-mapper "python3 project_mapper.py ' + queries['project'] + '" '+ \
+		 						'-file remdup_reducer.py '+ \
+		 						'-reducer "python3 remdup_reducer.py" ' + \
 		 						'-input /sql/' + db_name + '/' + table_name + '/' + table_name + '.csv ' + \
 		 						'-output /sql/final_out'
 
 		 			# print(cmd)
+		 			start = time.time()
 		 			os.system(cmd)
+		 			end = time.time()-start
+		 			print("Query executed in",end,"seconds")
 		 			exit()
 		 		else:
 		 			os.wait()
@@ -74,7 +83,10 @@ while 1:
 		 						'-input /sql/' + str(db_name) + '/' + str(table_name) + '/' + str(table_name) + '.csv ' + \
 		 						'-output /sql/final_out'
 		 			# print(cmd)
+		 			start = time.time()
 		 			os.system(cmd)
+		 			end = time.time()-start
+		 			print("Query executed in",end,"seconds")
 		 			exit()
 		 		else:
 		 			os.wait()
@@ -89,6 +101,7 @@ while 1:
 		 						'-input /sql/' + db_name + '/' + table_name + '/' + table_name + '.csv ' + \
 		 						'-output /sql/temp/select_out'
 		 			# print(cmd)
+		 			start = time.time()
 		 			os.system(cmd)
 		 			cmd = 'hadoop jar $HADOOP_HOME/contrib/streaming/hadoop-*streaming*.jar ' + \
 		 						'-files "hdfs://localhost:9000/sql/' + db_name + '/' + table_name + '/schema.txt" ' + \
@@ -99,6 +112,8 @@ while 1:
 		 						'-input /sql/temp/select_out ' + \
 		 						'-output /sql/final_out'
 		 			os.system(cmd)
+		 			end = time.time()-start
+		 			print("Query executed in",end,"seconds")
 		 			exit()
 		 		else:
 		 			os.wait()
@@ -113,12 +128,15 @@ while 1:
 		 						'-reducer "python3 agg_reducer.py'   + " " + queries['aggregate'][0] + "," +queries['aggregate'][1] + '\" ' + \
 		 						'-input /sql/' + db_name + '/' + table_name + '/' + table_name + '.csv ' + \
 		 						'-output /sql/final_out'
-		 			print(cmd)
+		 			#print(cmd)
+		 			start = time.time()
 		 			os.system(cmd)
+		 			end = time.time()-start
+		 			print("Query executed in",end,"seconds")
 		 			exit()
 				else:
 		 			os.wait()
 	read.read_folder("/sql/final_out/")
-	delete.delete_folder("/sql/temp/select_out/ ")
-	delete.delete_folder("/sql/final_out/ ")
+	delete.delete_folder("temp/select_out/ ")
+	delete.delete_folder("final_out/ ")
 		 		

@@ -7,12 +7,12 @@ Created on Thu Nov 21 14:08:15 2019
 
 import re
 def parser(query):
-    #query=input("Enter your query:")
+   # query=input("Enter your query:")
     regex_load=r'(load|LOAD) \w+/\w+\.csv (AS|as)\s\(([a-z A-z]+:(string|int|integer|char|varchar|float|double|time|year)(,|))+\);'
-    regex_select=r'(select|SELECT)\s(\w+|\w+,)\s(from|FROM)\s\w+/\w+\.csv(\s(where|WHERE)\s\w+(\s|)=(\s|)([0-9]+|\w+|)|);'
+    regex_select=r'(select|SELECT)\s(\w+|(\w+(,|))+)\s(from|FROM)\s\w+/\w+\.csv(\s(where|WHERE)\s(\w+(\s|)=(\s|)([0-9]+|\w+|)(,|))+|);'
     #regex_delete=r'(delete|DELETE)\s(\*|[a-z A-Z 0-9]+)\s(from|FROM)\s[a-z A-Z 0-9]+/[a-z A-Z 0-9]+\.csv(\s(where|WHERE)\s[a-z A-Z 0-9]+(\s|)=(\s|)([0-9]+|\'[a-z A-Z]+\')|);'
     regex_delete=r'(DELETE|delete)\s\w+\/\w+\.csv;'
-    regex_aggr=r'(SELECT|select)\s\w+\s(from|FROM)\s\w+/\w+\.csv((\s(where|WHERE) \w+=([0-9]+|\w+|))|) (AGGREGATE|aggregate) by (COUNT|SUM|MAX|MIN|count|sum|max|min);'
+    regex_aggr=r'(SELECT|select)\s(\w+(,|))+\s(from|FROM)\s\w+/\w+\.csv((\s(where|WHERE) (\w+=([0-9]+|\w+|)(,|))+)|) (AGGREGATE|aggregate) by (COUNT|SUM|MAX|MIN|count|sum|max|min);'
     if(re.search(regex_load,query)!=None):
         query=query.split()
         d={}
@@ -72,4 +72,3 @@ def parser(query):
         return(d)
     else:
         print("error: Please check u might have missed table name or semicolon or check syntax")
-        return -1

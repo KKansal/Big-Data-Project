@@ -27,6 +27,15 @@ def run_cmd(args_list):
 	s_return =  proc.returncode
 	return s_return, s_output, s_err
 """
+
+def check_file(file_name):
+	check_db = get(webhdfs + file_name + "/?op=LISTSTATUS")
+	if('RemoteException' in check_db.json().keys()):
+		return False
+	else:
+		return True
+
+
 def load_data(db_name,file_name,schema):
 	# db_name,file_name,schema = input().split()
 	schema += "\n"

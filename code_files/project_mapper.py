@@ -31,11 +31,23 @@ for i in range(0,query_len):
 		if query[i] == schema[j]:
 			column_order.append(j)
 
+flag = True
+for x in query:
+	if x not in schema:
+		print("Project: Given column doesnot exist")
+		flag = False
+
+
 for line in table:
 	line = line.strip()
+	if(line == "Select: Given column doesnot exist"):
+		print(line)
+		flag = False
 	for i in range(len(column_order)):
 		#print("col order: ",len(column_order))
 		if i != len((column_order))-1:
-			print(line.split(",")[column_order[i]],end=",")
+			if flag:
+				print(line.split(",")[column_order[i]],end=",")
 		else:
-			print(line.split(",")[column_order[i]])
+			if flag:
+				print(line.split(",")[column_order[i]])
